@@ -1,29 +1,40 @@
-package david.java.olympicjava.model;
+package fr.efrei.test.model;
 
 import jakarta.persistence.*;
+import fr.efrei.test.constants.Role;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String nom;
-    private String email;
-    private String role;
 
-    // Constructeur par défaut
+    @Column(nullable = false)
+	private String fullName;
+
+	@Column(unique = true, length = 100, nullable = false)
+	private String email;
+    
+    @Column(nullable = false)
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
     public User() {}
 
-    // Constructeur avec tous les champs
-    public User(Long id, String nom, String email, String role) {
+    public User(Long id, String nom, String email, Role role) {
         this.id = id;
         this.nom = nom;
         this.email = email;
         this.role = role;
     }
+    
 
-    // Getters et setters
     public Long getId() {
         return id;
     }
@@ -48,11 +59,11 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

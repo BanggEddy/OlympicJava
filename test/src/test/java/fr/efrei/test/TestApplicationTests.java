@@ -1,10 +1,10 @@
-package david.java.olympicjava;
+package fr.efrei.test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OlympicjavaApplicationTests {
+class TestApplicationTests {
 
 	@Test
 	void contextLoads() {
