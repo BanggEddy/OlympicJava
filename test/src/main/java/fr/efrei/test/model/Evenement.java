@@ -1,9 +1,12 @@
 package fr.efrei.test.model;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "Evenement")
@@ -30,6 +33,14 @@ public class Evenement {
 
     @Column(nullable = false)
     private String description;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private Date updatedAt;
+
+    @CreationTimestamp
+	@Column(updatable = false, name = "created_at")
+	private Date createdAt;
 
     @OneToMany(mappedBy = "evenement")
     private Set<Epreuve> epreuves = new HashSet<>();

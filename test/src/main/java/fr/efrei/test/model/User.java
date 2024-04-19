@@ -1,7 +1,12 @@
 package fr.efrei.test.model;
 
 import jakarta.persistence.*;
+
+import java.util.Date;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import fr.efrei.test.constants.Role;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class User {
@@ -21,6 +26,14 @@ public class User {
     
     @Column(nullable = false)
 	private String password;
+    
+	@CreationTimestamp
+	@Column(updatable = false, name = "created_at")
+	private Date createdAt;
+
+    @UpdateTimestamp
+	@Column(name = "updated_at")
+	private Date updatedAt;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;

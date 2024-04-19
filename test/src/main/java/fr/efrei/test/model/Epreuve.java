@@ -3,6 +3,9 @@ package fr.efrei.test.model;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "Epreuve")
 public class Epreuve {
@@ -21,7 +24,15 @@ public class Epreuve {
     private String stade;
 
     @Column(nullable = false)
-    private Boolean ouvert;
+    private String horraire;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private Date updatedAt;
+
+    @CreationTimestamp
+	@Column(updatable = false, name = "created_at")
+	private Date createdAt;
 
     @ManyToOne
     @JoinColumn(name = "evenement_id")
@@ -30,11 +41,11 @@ public class Epreuve {
     public Epreuve() {
     }
 
-    public Epreuve(String nom, Date date, String stade, Boolean ouvert, Evenement evenement) {
+    public Epreuve(String nom, Date date, String stade, String horraire, Evenement evenement) {
         this.nom = nom;
         this.date = date;
         this.stade = stade;
-        this.ouvert = ouvert;
+        this.horraire = horraire;
         this.evenement = evenement;
     }
 
@@ -70,12 +81,12 @@ public class Epreuve {
         this.stade = stade;
     }
 
-    public Boolean getOuvert() {
-        return ouvert;
+    public String getHorraire() {
+        return horraire;
     }
 
-    public void setOuvert(Boolean ouvert) {
-        this.ouvert = ouvert;
+    public void setHorraire(String horraire) {
+        this.horraire = horraire;
     }
 
     public Evenement getEvenement() {
