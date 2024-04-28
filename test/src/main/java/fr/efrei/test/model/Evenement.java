@@ -2,12 +2,16 @@ package fr.efrei.test.model;
 
 import jakarta.persistence.*;
 
+import lombok.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "Evenement")
 public class Evenement {

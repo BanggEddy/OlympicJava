@@ -1,82 +1,85 @@
 package fr.efrei.test.model;
 
-import jakarta.persistence.*;
-
-import java.util.Date;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import fr.efrei.test.constants.Role;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import lombok.*;
 
+import java.util.*;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
+public class User implements UserDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String id;
 
-    @Column(nullable = false)
-    private String nom;
-
-    @Column(nullable = false)
+	@Column(nullable = false)
 	private String fullName;
 
 	@Column(unique = true, length = 100, nullable = false)
 	private String email;
-    
-    @Column(nullable = false)
+
+	@Column(nullable = false)
 	private String password;
-    
+
 	@CreationTimestamp
 	@Column(updatable = false, name = "created_at")
 	private Date createdAt;
 
-    @UpdateTimestamp
+	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private Date updatedAt;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-    public User() {}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<Role> roles = Set.of(role);
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-    public User(Long id, String nom, String email, Role role) {
-        this.id = id;
-        this.nom = nom;
-        this.email = email;
-        this.role = role;
-    }
-    
+		for (Role role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role.name()));
+		}
+		return authorities;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	@Override
+	public String getUsername() {
+		return email;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getNom() {
-        return nom;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

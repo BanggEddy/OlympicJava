@@ -1,7 +1,11 @@
 package fr.efrei.test.model;
-
+import lombok.*;
 import jakarta.persistence.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Stade")
 public class Stade {

@@ -1,6 +1,10 @@
 package fr.efrei.test.model;
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "Commande")
 public class Commande {

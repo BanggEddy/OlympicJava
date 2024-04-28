@@ -2,10 +2,13 @@ package fr.efrei.test.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
-
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "Epreuve")
 public class Epreuve {
