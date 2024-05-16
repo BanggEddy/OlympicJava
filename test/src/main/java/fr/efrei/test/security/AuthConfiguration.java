@@ -37,7 +37,7 @@ public class AuthConfiguration {
             .authorizeHttpRequests(requests -> 
                 requests
 				.requestMatchers("/auth/signup", "/auth/login").permitAll()
-				.requestMatchers("/evenements").authenticated()
+				.requestMatchers("/evenement/**").authenticated()
 
             )
             .sessionManagement(session -> 

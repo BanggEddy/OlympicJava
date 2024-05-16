@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EvenementRepository extends JpaRepository<Evenement, Long> {
-    	// SELECT * from Student where deleted_at is null
+public interface EvenementRepository extends JpaRepository<Evenement, String> {
+
 	List<Evenement> findAllByDeletedAtNull();
 
 	Optional<Evenement> findOneByUuid(String uuid);
