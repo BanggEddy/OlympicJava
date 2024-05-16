@@ -14,8 +14,9 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Epreuve {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String id;
 
     @Column(nullable = false)
     private String nom;
@@ -52,11 +53,11 @@ public class Epreuve {
         this.evenement = evenement;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -11,9 +11,9 @@ import jakarta.persistence.*;
 public class Stade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String id;
 
     @Column(nullable = false)
     private String nom;
@@ -34,11 +34,11 @@ public class Stade {
         this.placeDispo = placeDispo;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -30,18 +30,24 @@ public class AuthConfiguration {
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	}
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(requests ->
-						requests.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-								.anyRequest().authenticated())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		return http.build();
-	}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(requests -> 
+                requests
+				.requestMatchers("/auth/signup", "/auth/login").permitAll()
+				.requestMatchers("/evenements").authenticated()
+
+            )
+            .sessionManagement(session -> 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

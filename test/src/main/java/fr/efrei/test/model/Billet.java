@@ -13,8 +13,9 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Billet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String id;
 
     @Column(nullable = false)
     private Float prix;
@@ -48,12 +49,11 @@ public class Billet {
         this.epreuve = epreuve;
     }
 
-    // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -3,6 +3,8 @@ package fr.efrei.test.model;
 import jakarta.persistence.*;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +19,9 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Evenement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String uuid;
 
     @Column(nullable = false)
     private String nom;
@@ -46,6 +49,8 @@ public class Evenement {
 	@Column(updatable = false, name = "created_at")
 	private Date createdAt;
 
+    private LocalDateTime deletedAt = null;
+
     @OneToMany(mappedBy = "evenement")
     private Set<Epreuve> epreuves = new HashSet<>();
 
@@ -61,12 +66,12 @@ public class Evenement {
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
+    public String getId() {
+        return uuid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.uuid = id;
     }
 
     public String getNom() {
@@ -124,4 +129,11 @@ public class Evenement {
     public void setEpreuves(Set<Epreuve> epreuves) {
         this.epreuves = epreuves;
     }
+
+    public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+    public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
 }

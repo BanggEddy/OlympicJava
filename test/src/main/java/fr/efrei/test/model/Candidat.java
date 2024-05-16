@@ -11,8 +11,9 @@ import jakarta.persistence.*;
 public class Candidat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(nullable = false)
+	private String id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -33,11 +34,11 @@ public class Candidat {
 
     public Candidat() {}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
