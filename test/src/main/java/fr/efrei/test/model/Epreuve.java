@@ -1,6 +1,8 @@
 package fr.efrei.test.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,7 +18,7 @@ public class Epreuve {
     @Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(nullable = false)
-	private String id;
+	private String uuid;
 
     @Column(nullable = false)
     private String nom;
@@ -38,6 +40,8 @@ public class Epreuve {
 	@Column(updatable = false, name = "created_at")
 	private Date createdAt;
 
+    private LocalDateTime deletedAt = null;
+
     @ManyToOne
     @JoinColumn(name = "evenement_id")
     private Evenement evenement;
@@ -45,20 +49,22 @@ public class Epreuve {
     public Epreuve() {
     }
 
-    public Epreuve(String nom, Date date, String stade, String horraire, Evenement evenement) {
+    public Epreuve(String nom, Date date, String stade, String horraire,Date updatedat, Date createdat, Evenement evenement) {
         this.nom = nom;
         this.date = date;
         this.stade = stade;
         this.horraire = horraire;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
         this.evenement = evenement;
     }
 
     public String getId() {
-        return id;
+        return uuid;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.uuid = id;
     }
 
     public String getNom() {
@@ -100,4 +106,11 @@ public class Epreuve {
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
+
+    public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+    public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
 }

@@ -14,7 +14,7 @@ public interface EvenementRepository extends JpaRepository<Evenement, String> {
 
 	Optional<Evenement> findOneByUuid(String uuid);
 
-	Evenement save(Evenement student);
+	Evenement save(Evenement evenement);
 
 	void deleteByUuid(String uuid);
 }
