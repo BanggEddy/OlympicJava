@@ -5,6 +5,7 @@ import fr.efrei.test.dto.epreuve.CreateEpreuve;
 import fr.efrei.test.model.Epreuve;
 import fr.efrei.test.service.EpreuveService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,5 +51,15 @@ public class EpreuveController  {
 	public ResponseEntity<Epreuve> save(@RequestBody CreateEpreuve epreuve) {
 		Epreuve createdEpreuve = service.create(epreuve);
 		return new ResponseEntity<>(createdEpreuve, HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/{uuid}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<?> delete(@PathVariable String uuid) {
+		boolean isDeleted = service.delete(uuid);
+		if(isDeleted) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }
