@@ -1,11 +1,10 @@
 package fr.efrei.test.dto.epreuve;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import fr.efrei.test.model.Evenement;
 
-public class CreateEpreuve {
+public class UpdateEpreuve {
     
     private String nom;
     private Date date;
@@ -15,7 +14,7 @@ public class CreateEpreuve {
     private Date createAt;
     private Evenement evenement;
 
-    public CreateEpreuve(String nom, Date date, String stade, String horraire, Date updateAt, Date createAt, Evenement evenement) {
+    public UpdateEpreuve(String nom, Date date, String stade, String horraire, Date updateAt, Date createAt, Evenement evenement) {
         this.nom = nom;
         this.date = date;
         this.stade = stade;
@@ -24,6 +23,7 @@ public class CreateEpreuve {
         this.createAt = createAt;
         this.evenement = evenement;
     }
+
 
     public String getNom() {
         return nom;
@@ -51,5 +51,4 @@ public class CreateEpreuve {
     public Date getCreateAt() {
         return createAt;
     }
-    
 }

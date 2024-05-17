@@ -1,11 +1,14 @@
 package fr.efrei.test.service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import fr.efrei.test.dto.UpdateEvenement;
 import fr.efrei.test.dto.epreuve.CreateEpreuve;
+import fr.efrei.test.dto.epreuve.UpdateEpreuve;
 import fr.efrei.test.model.Epreuve;
 import fr.efrei.test.model.Evenement;
 import fr.efrei.test.repository.EpreuveRepository;
@@ -52,5 +55,22 @@ public class EpreuveService {
 			return true;
 		}
 		return false;
+	}
+
+    public boolean update(String uuid, UpdateEpreuve epreuve) {
+	Epreuve epreuveAModifier = findEpreuveById(uuid);
+
+	if(epreuveAModifier != null) {
+        epreuveAModifier.setNom(epreuve.getNom());
+        epreuveAModifier.setDate(epreuve.getDate());
+        epreuveAModifier.setStade(epreuve.getStade());
+        epreuveAModifier.setHorraire(epreuve.getHorraire());
+        epreuveAModifier.setUpdatedAt(epreuve.getUpdateAt());
+        epreuveAModifier.setCreatedAt(epreuve.getCreateAt());
+        epreuveAModifier.setEvenement(epreuve.getEvenement());
+        repository.save(epreuveAModifier);
+		return true;
+	}
+	return false;
 	}
 }

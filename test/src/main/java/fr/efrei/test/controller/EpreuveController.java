@@ -1,7 +1,9 @@
 package fr.efrei.test.controller;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.efrei.test.dto.UpdateEvenement;
 import fr.efrei.test.dto.epreuve.CreateEpreuve;
+import fr.efrei.test.dto.epreuve.UpdateEpreuve;
 import fr.efrei.test.model.Epreuve;
 import fr.efrei.test.service.EpreuveService;
 
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -58,6 +61,18 @@ public class EpreuveController  {
 	public ResponseEntity<?> delete(@PathVariable String uuid) {
 		boolean isDeleted = service.delete(uuid);
 		if(isDeleted) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/{uuid}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<?> mettreAJourTotalement(
+			@PathVariable String uuid,
+			@RequestBody UpdateEpreuve epreuve) {
+		boolean isUpdated = service.update(uuid, epreuve);
+		if(isUpdated) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
