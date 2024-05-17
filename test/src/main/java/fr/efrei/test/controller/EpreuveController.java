@@ -9,6 +9,7 @@ import fr.efrei.test.service.EpreuveService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -72,6 +73,18 @@ public class EpreuveController  {
 			@PathVariable String uuid,
 			@RequestBody UpdateEpreuve epreuve) {
 		boolean isUpdated = service.update(uuid, epreuve);
+		if(isUpdated) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@PatchMapping("/{uuid}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<?> mettreAjourPartiellement(
+			@PathVariable String uuid,
+			@RequestBody UpdateEpreuve epreuve) {
+		boolean isUpdated = service.updatePartielle(uuid, epreuve);
 		if(isUpdated) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

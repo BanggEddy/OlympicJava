@@ -73,4 +73,37 @@ public class EpreuveService {
 	}
 	return false;
 	}
+
+    public boolean updatePartielle(String uuid, UpdateEpreuve epreuve) {
+        Epreuve epreuveAModifier = findEpreuveById(uuid);
+    
+        if(epreuveAModifier != null) {
+            if(!epreuve.getNom().isEmpty()) {
+                epreuveAModifier.setNom(epreuve.getNom());
+            }
+            if(epreuve.getDate() != null) {
+                epreuveAModifier.setDate(epreuve.getDate());
+            }
+            if(!epreuve.getStade().isEmpty()) {
+                epreuveAModifier.setStade(epreuve.getStade());
+            }
+            if(!epreuve.getHorraire().isEmpty()) {
+                epreuveAModifier.setHorraire(epreuve.getHorraire());
+            }
+            if (epreuve.getUpdateAt() != null) {
+                epreuveAModifier.setUpdatedAt(epreuve.getUpdateAt());
+            }
+            if (epreuve.getCreateAt() != null) {
+                epreuveAModifier.setCreatedAt(epreuve.getCreateAt());
+            }
+            if(epreuve.getEvenement() != null) {
+                epreuveAModifier.setEvenement(epreuve.getEvenement());
+            }
+            repository.save(epreuveAModifier);
+            return true;
+        }
+        return false;
+    }
+    
+    
 }
