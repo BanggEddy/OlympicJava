@@ -11,7 +11,6 @@ import lombok.*;
 
 import java.util.*;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -43,6 +42,9 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@OneToMany(mappedBy = "user")
+	private Set<Billet> billets = new HashSet<>();
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<Role> roles = Set.of(role);
@@ -52,6 +54,10 @@ public class User implements UserDetails {
 			authorities.add(new SimpleGrantedAuthority(role.name()));
 		}
 		return authorities;
+	}
+
+	public User(String id) {
+		this.id = id;
 	}
 
 	@Override

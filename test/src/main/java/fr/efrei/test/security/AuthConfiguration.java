@@ -24,42 +24,38 @@ public class AuthConfiguration {
 
 	public AuthConfiguration(
 			JwtAuthenticationFilter jwtAuthenticationFilter,
-			AuthenticationProvider authenticationProvider
-	) {
+			AuthenticationProvider authenticationProvider) {
 		this.authenticationProvider = authenticationProvider;
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	}
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(requests -> 
-                requests
-				.requestMatchers("/auth/signup", "/auth/login").permitAll()
-				.requestMatchers("/evenement/**", "/epreuve/**").authenticated()
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(requests -> requests
+						.requestMatchers("/auth/signup", "/auth/login").permitAll()
+						.requestMatchers("/evenement/**", "/epreuve/**", "/billet/**").authenticated()
 
-            )
-            .sessionManagement(session -> 
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+				)
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authenticationProvider(authenticationProvider)
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
-    }
+		return http.build();
+	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		configuration.setAllowedOrigins(List.of("http://localhost:9090"));
-		configuration.setAllowedMethods(List.of("GET","POST"));
-		configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+		configuration.setAllowedMethods(List.of("GET", "POST"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-		source.registerCorsConfiguration("/**",configuration);
+		source.registerCorsConfiguration("/**", configuration);
 
 		return source;
 	}

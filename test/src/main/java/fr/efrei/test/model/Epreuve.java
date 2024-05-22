@@ -16,9 +16,9 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Epreuve {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(nullable = false)
-	private String uuid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    private String uuid;
 
     @Column(nullable = false)
     private String nom;
@@ -32,13 +32,13 @@ public class Epreuve {
     @Column(nullable = false)
     private String horraire;
 
-	@UpdateTimestamp
-	@Column(name = "updated_at")
-	private Date updatedAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @CreationTimestamp
-	@Column(updatable = false, name = "created_at")
-	private Date createdAt;
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
 
     private LocalDateTime deletedAt = null;
 
@@ -49,7 +49,8 @@ public class Epreuve {
     public Epreuve() {
     }
 
-    public Epreuve(String nom, Date date, String stade, String horraire,Date updatedat, Date createdat, Evenement evenement) {
+    public Epreuve(String nom, Date date, String stade, String horraire, Date updatedat, Date createdat,
+            Evenement evenement) {
         this.nom = nom;
         this.date = date;
         this.stade = stade;
@@ -57,6 +58,10 @@ public class Epreuve {
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.evenement = evenement;
+    }
+
+    public Epreuve(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getId() {
@@ -108,9 +113,10 @@ public class Epreuve {
     }
 
     public LocalDateTime getDeletedAt() {
-		return deletedAt;
-	}
+        return deletedAt;
+    }
+
     public void setDeletedAt(LocalDateTime deletedAt) {
-		this.deletedAt = deletedAt;
-	}
+        this.deletedAt = deletedAt;
+    }
 }

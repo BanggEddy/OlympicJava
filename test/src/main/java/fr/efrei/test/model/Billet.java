@@ -2,6 +2,8 @@ package fr.efrei.test.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,9 +15,9 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Billet {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(nullable = false)
-	private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    private String uuid;
 
     @Column(nullable = false)
     private Float prix;
@@ -30,31 +32,31 @@ public class Billet {
     @JoinColumn(name = "user_id")
     private User user;
 
-	@CreationTimestamp
-	@Column(updatable = false, name = "created_at")
-	private Date createdAt;
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
 
     @ManyToOne
     @JoinColumn(name = "epreuve_id")
     private Epreuve epreuve;
 
-    // Constructor
-    public Billet() {}
+    private LocalDateTime deletedAt = null;
 
-    public Billet(Float prix, Float quantity, Float reduction, User user, Epreuve epreuve) {
+    public Billet(Float prix, Float quantity, Float reduction, User user, Epreuve epreuve, Date createdAt) {
         this.prix = prix;
         this.quantity = quantity;
         this.reduction = reduction;
         this.user = user;
         this.epreuve = epreuve;
+        this.createdAt = createdAt;
     }
 
     public String getId() {
-        return id;
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String uuid) {
+        this.uuid = uuid;
     }
 
     public Float getPrix() {
@@ -96,5 +98,12 @@ public class Billet {
     public void setEpreuve(Epreuve epreuve) {
         this.epreuve = epreuve;
     }
-}
 
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+}
