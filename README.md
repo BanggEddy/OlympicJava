@@ -1,7 +1,7 @@
 Projet Java Spring Boot
 Description
 
-Ce projet est une application web basée sur le framework Spring Boot en Java, conçue pour gérer un système d'authentification, de gestion des billets, des épreuves sportives, des événements et des utilisateurs. Bien que le projet ne soit pas complètement terminé, plusieurs fonctionnalités principales ont été implémentées.
+Ce projet est une api basée sur le framework Spring Boot en Java, conçue pour gérer un système d'authentification, de gestion des billets, des épreuves sportives, des événements et des utilisateurs. Bien que le projet ne soit pas complètement terminé, plusieurs fonctionnalités principales ont été implémentées.
 Fonctionnalités
 
     Authentification et Autorisation
