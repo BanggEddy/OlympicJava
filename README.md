@@ -106,10 +106,3 @@ Endpoints Principaux
     PUT /evenement/{uuid} : Mettre à jour un événement par UUID
 
     PATCH /evenement/{uuid} : Mettre à jour partiellement un événement par UUID
-
-Prochaines Étapes
-
-    Finaliser les tests unitaires et d'intégration
-    Implémenter une interface utilisateur (UI) pour faciliter l'interaction avec l'application
-    Ajouter des fonctionnalités de notification par email
-    Faire les autres CRUD pour les autres models
